@@ -41,4 +41,4 @@ build/
 coffee-bean-sales-dataset.zip
 
 #Python virtual env
-/home/carlos/java-oop/coffee-etl/coffeeIsGreat/app/myenv
+/app/myenv
