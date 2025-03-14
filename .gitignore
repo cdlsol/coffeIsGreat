@@ -42,3 +42,6 @@ coffee-bean-sales-dataset.zip
 
 #Python virtual env
 /app/myenv
+
+#dot env
+/app/.env
