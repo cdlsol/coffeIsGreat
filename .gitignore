@@ -45,3 +45,6 @@ coffee-bean-sales-dataset.zip
 
 #dot env
 /app/.env
+
+#Model test file
+app/test_model.py
