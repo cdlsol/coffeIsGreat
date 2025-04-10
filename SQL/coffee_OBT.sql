@@ -1,3 +1,17 @@
+CREATE TABLE landing_stage (
+    landing_id SERIAL PRIMARY KEY,
+    sale_date DATE NOT NULL,
+    customer_id INT NOT NULL,
+    city INT NOT NULL,
+    product INT NOT NULL,
+    unit_price NUMERIC(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    sales_amount NUMERIC(10,2) NOT NULL,
+    used_discount BOOLEAN NOT NULL,
+    discount_amount NUMERIC(10,2) NOT NULL,
+    final_sales NUMERIC(10,2) NOT NULL
+);
+
 
 CREATE TABLE dim_city (
     city_id SERIAL PRIMARY KEY,
