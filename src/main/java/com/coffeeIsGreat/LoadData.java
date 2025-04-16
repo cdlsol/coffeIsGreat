@@ -112,8 +112,8 @@ public class LoadData {
 //        System.out.println("Data successfully loaded into dim_product using Spark .write().");
     }
 
-    // Load data into the fact_sales table using custom SQL
-    public static void loadFactSales(Dataset<Row> salesData) {
+    // Load data into the dim_product table using custom SQL
+    public static void loadDimSales(Dataset<Row> salesData) {
         String url = "jdbc:postgresql://localhost:5434/coffeeData";
         String user = "admin";
         String password = "admin";
@@ -122,7 +122,7 @@ public class LoadData {
         List<Row> rows = salesData.collectAsList();
 
         // Batch insert with conflict handling (do nothing on conflict)
-        String insertSQL = "INSERT INTO fact_sales (sale_id, product_id, quantity, sale_date) VALUES (?, ?, ?, ?) ON CONFLICT (sale_id) DO NOTHING;";
+        String insertSQL = "INSERT INTO dim_sales (date, customer_id, quantity, sales_amount, used_discount, final_sales, city, product, category) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?);";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
@@ -132,10 +132,16 @@ public class LoadData {
             int count = 0;
 
             for (Row row : rows) {
-                pstmt.setInt(1, row.getAs("sale_id"));
-                pstmt.setInt(2, row.getAs("product_id"));
+                pstmt.setDate(1, row.getAs("date"));
+                pstmt.setString(2, row.getAs("customer_id"));
                 pstmt.setInt(3, row.getAs("quantity"));
-                pstmt.setDate(4, row.getAs("sale_date"));  // assuming sale_date is of type java.sql.Date
+                pstmt.setInt(4, row.getAs("sales_amount"));
+                pstmt.setString(5, row.getAs("used_discount"));
+                pstmt.setInt(6, row.getAs("final_sales"));
+                pstmt.setString(7, row.getAs("city"));
+                pstmt.setString(8, row.getAs("product"));
+                pstmt.setString(9, row.getAs("category"));
+
                 pstmt.addBatch(); // Add to batch
 
                 if (++count % batchSize == 0) {
@@ -145,23 +151,12 @@ public class LoadData {
 
             // Execute remaining batch if there are any left
             pstmt.executeBatch();
-            System.out.println("Data successfully loaded into fact_sales.");
+            System.out.println("Data successfully loaded into dim_sales.");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        // Alternative: Load data into the fact_sales table using Spark's .write() method
-//        salesData.write()
-//                .format("jdbc")
-//                .option("url", url)
-//                .option("dbtable", "fact_sales")
-//                .option("user", user)
-//                .option("password", password)
-//                .option("driver", "org.postgresql.Driver")
-//                .mode("append")  // Use append mode for fact table data
-//                .save();
-//
-//        System.out.println("Data successfully loaded into fact_sales using Spark .write().");
+
     }
 }

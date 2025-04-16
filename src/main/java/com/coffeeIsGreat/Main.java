@@ -35,16 +35,12 @@ public class Main {
             // Split the data into dimensions and fact tables
             Dataset<Row> cityData = transformedData.select("city").distinct(); // Get unique cities
             Dataset<Row> productData = transformedData.select("category", "product", "unit_price").distinct(); // Get unique products
-
-            // Fact data
-//            Dataset<Row> factSalesData = transformedData.select("Sale_ID", "Product_ID", "Quantity", "Sale_Date"); // Assuming these columns
+            Dataset<Row> salesData = transformedData.select("date","customer_id", "quantity", "sales_amount", "used_discount", "final_sales", "city", "product", "category");
 
             // Load into dimension tables
             LoadData.loadDimCity(cityData);
             LoadData.loadDimProduct(productData);
-
-            // Load into fact table
-//            LoadData.loadFactSales(factSalesData);
+            LoadData.loadDimSales(salesData);
 
         } catch (Exception e) {
             System.err.println("Error occurred: " + e.getMessage());
