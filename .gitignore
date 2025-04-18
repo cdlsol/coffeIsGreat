@@ -48,3 +48,6 @@ coffee-bean-sales-dataset.zip
 
 #Model test file
 app/test_model.py
+
+#API Creds
+.env
