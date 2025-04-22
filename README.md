@@ -38,6 +38,7 @@ coffee-is-great/
 
 🧪 API Usage
 Once the API is running locally, you can access the following endpoints:
+
 `GET /healthcheck`
 Check if the API is running properly.
 
