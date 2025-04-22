@@ -22,17 +22,7 @@ This project automates the process of:
 
 ---
 
-## 📁 Project Structure
-
-coffee-is-great/ 
-├── sql/ # SQL script and data model
-├── src/main/java/com/coffeeIsGreat # Apache Spark job (Java code) 
-├── api/ # Flask REST API 
-├── data/ # Input CSV files 
-├── dockerfile # PostgreSQL container configuration 
-├── pom.xml # Maven dependencies
-├── README.md #This file
-├── run.py #Flask API main file
+<pre> ```markdown ## 📁 Project Structure coffee-is-great/ ├── 📂 sql/ # SQL scripts and data model ├── 📂 src/main/java/com/coffeeIsGreat/ # Apache Spark job (Java code) ├── 📂 api/ # Flask REST API ├── 📂 data/ # Input CSV files ├── 🐳 dockerfile # PostgreSQL container configuration ├── 📄 pom.xml # Maven dependencies for Spark ├── 📄 run.py # Entry point for Flask API ├── 📄 README.md # Project documentation (this file) ``` </pre>
 
 ---
 
